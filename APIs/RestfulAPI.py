@@ -1,12 +1,16 @@
 import os,json
 
-from flask import Flask,request,render_template,jsonify,redirect
+from flask import Flask,request,render_template,jsonify,redirect,session
 from flask_cors import CORS, cross_origin
+from datetime import timedelta
 
 from Core.Code_Core import Code_Core
 from Core.SQLite_Core import SQLite_Core
 
 app = Flask(__name__)
+
+app.secret_key = os.urandom(16)
+app.permanent_session_lifetime = timedelta(days=1)
 
 FileSQL = SQLite_Core(r'../Test_Source/File.db',Table_Name='File')
 AccountSQL = SQLite_Core(r'../Test_Source/Account.db',Table_Name='Account')
@@ -24,11 +28,13 @@ Code_Generate = Code_Core()
 @app.route(r'/',methods=['GET','POST'])
 @cross_origin()
 def Main_Page():
-    return 'Main_Page'
+    session['login_state'] = 'No'
+    return "Main"
 
 @app.route(r'/Login',methods=['GET','POST'])
 @cross_origin()
 def Login():
+    session['login_state'] = False
     if request.method == "POST":
         print(request.form.get('Email'))
         print(request.form.get('Password'))
@@ -66,5 +72,4 @@ def Code_Image():
     return Image_Base64[1]
 
 if __name__ == "__main__":
-    app.secret_key = os.urandom(16)
     app.run(debug=True)

@@ -31,13 +31,27 @@ SQL.Close()
 
 
 
-SQL=SQLite_Core(DB_Name=r'..\Test_Source\Account.db',Table_Name='UserInfo')
+SQL=SQLite_Core(DB_Name=r'..\Test_Source\Account.db',Table_Name='UserAccount')
 
-SQL.Create_Table('CREATE TABLE IF NOT EXISTS UserInfo(Email VARCHAR(254),Passsword VARCHAR(20),Authority VARCHAR(10))')
+SQL.Create_Table('CREATE TABLE IF NOT EXISTS UserAccount(Email VARCHAR(254),Passsword VARCHAR(20))')
 
-SQL.Values_Count = 3
+SQL.Create_Table('CREATE TABLE IF NOT EXISTS UserAuthorityLevelID(Email VARCHAR(254),AuthorityLevelID VARCHAR(20))')
 
-SQL.Insert_Into_Replace('zenmailman@gmail.com','12345678','Super')
+SQL.Create_Table('CREATE TABLE IF NOT EXISTS AuthorityLevel(AuthorityLevelID VARCHAR(20),AuthorityLevel VARCHAR(20))')
+
+SQL.Create_Table('CREATE TABLE IF NOT EXISTS AuthorityID(AuthorityLevel VARCHAR(254),AuthorityID VARCHAR(20))')
+
+SQL.Create_Table('CREATE TABLE IF NOT EXISTS Authority(AuthorityID VARCHAR(254),Authority VARCHAR(20))')
+
+SQL.Values_Count = 2
+
+SQL.Table_Name = 'UserAccount'
+
+SQL.Insert_Into_Replace('zenmailman@gmail.com','12345678')
+
+SQL.Table_Name = 'UserAuthorityLevelID'
+
+SQL.Insert_Into_Replace('zenmailman@gmail.com','1')
 
 SQL.Close()
 
