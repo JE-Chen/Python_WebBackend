@@ -1,7 +1,7 @@
 import os,json
 
-from flask import Flask,request,render_template,jsonify,redirect,session
-from flask_cors import CORS, cross_origin
+from flask import Flask,request,redirect,session
+from flask_cors import cross_origin
 from datetime import timedelta
 
 from Core.Code_Core import Code_Core
