@@ -1,8 +1,8 @@
-import os,json
-
-from flask import Flask,request,redirect,session
-from flask_cors import cross_origin
+import os
 from datetime import timedelta
+
+from flask import Flask, request, redirect, session
+from flask_cors import cross_origin
 
 from Core.Code_Core import Code_Core
 from Core.SQLite_Core import SQLite_Core
@@ -12,8 +12,8 @@ app = Flask(__name__)
 app.secret_key = os.urandom(16)
 app.permanent_session_lifetime = timedelta(days=1)
 
-FileSQL = SQLite_Core(r'../Test_Source/File.db',Table_Name='File')
-AccountSQL = SQLite_Core(r'../Test_Source/Account.db',Table_Name='Account')
+FileSQL = SQLite_Core(r'../Test_Source/File.db', Table_Name='File')
+AccountSQL = SQLite_Core(r'../Test_Source/Account.db', Table_Name='Account')
 
 Code_Generate = Code_Core()
 
@@ -25,13 +25,15 @@ Code_Generate = Code_Core()
 刪除特定資料：DELETE + 名稱 + id
 '''
 
-@app.route(r'/',methods=['GET','POST'])
+
+@app.route(r'/', methods=['GET', 'POST'])
 @cross_origin()
 def Main_Page():
     session['login_state'] = 'No'
     return "Main"
 
-@app.route(r'/Login',methods=['GET','POST'])
+
+@app.route(r'/Login', methods=['GET', 'POST'])
 @cross_origin()
 def Login():
     session['login_state'] = False
@@ -39,37 +41,42 @@ def Login():
         print(request.form.get('Email'))
         print(request.form.get('Password'))
         print(request.form.get('Verification_Code'))
-    return redirect('http://127.0.0.1:5000/','302')
+    return redirect('http://127.0.0.1:5000/', '302')
 
-@app.route(r'/Register',methods=['GET','POST'])
+
+@app.route(r'/Register', methods=['GET', 'POST'])
 @cross_origin()
 def Register():
     if request.method == "POST":
         print(request.form.get('Email'))
         print(request.form.get('Password'))
         print(request.form.get('ConfirmPassword'))
-    return redirect('http://127.0.0.1:5000/Login','302')
+    return redirect('http://127.0.0.1:5000/Login', '302')
 
-@app.route(r'/Forgot_Password',methods=['GET','POST'])
+
+@app.route(r'/Forgot_Password', methods=['GET', 'POST'])
 @cross_origin()
 def Forgot_Password():
     if request.method == "POST":
         print(request.form.get('Email'))
-    return redirect('http://127.0.0.1:5000/Verification_Code','302')
+    return redirect('http://127.0.0.1:5000/Verification_Code', '302')
 
-@app.route(r'/Verification_Code',methods=['GET','POST'])
+
+@app.route(r'/Verification_Code', methods=['GET', 'POST'])
 @cross_origin()
 def Verification_Code():
     if request.method == "POST":
         print(request.form.get('Verification_Code'))
-    return redirect('http://127.0.0.1:5000/Login','302')
+    return redirect('http://127.0.0.1:5000/Login', '302')
 
-@app.route(r'/Generate_CodeImage',methods=['GET','POST'])
+
+@app.route(r'/Generate_CodeImage', methods=['GET', 'POST'])
 @cross_origin()
 def Code_Image():
     Image_Base64 = Code_Generate.Generate.Generate_Base64_Image(False)
     print(Image_Base64[0])
     return Image_Base64[1]
+
 
 if __name__ == "__main__":
     app.run(debug=True)

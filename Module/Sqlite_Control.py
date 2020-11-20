@@ -184,8 +184,8 @@ class Sqlite_Control():
             Format_String.split(',')
         print(Format_String, 'Format_String')
         Result_List += self.cursor.execute(
-                'SELECT ' + Format_String + ' FROM ' + self.Table_Name + ''' WHERE ''' + Format_String + '''="''' + str(
-                args[len(args)-self.Valute_Count])+'''"''').fetchall()
+            'SELECT ' + Format_String + ' FROM ' + self.Table_Name + ''' WHERE ''' + Format_String + '''="''' + str(
+                args[len(args) - self.Valute_Count]) + '''"''').fetchall()
         print('Sqlite_Control - Select_Where Result_List : ', Result_List, '\n')
         return Result_List
 

@@ -6,4 +6,3 @@ print(Code[0])
 print(Code[1])
 
 print(g.Generate.Generate_Code_OnlyString(5))
-

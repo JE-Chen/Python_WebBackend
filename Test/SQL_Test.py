@@ -29,9 +29,7 @@ SQL.Close()
 
 '''
 
-
-
-SQL=SQLite_Core(DB_Name=r'..\Test_Source\Account.db',Table_Name='UserAccount')
+SQL = SQLite_Core(DB_Name=r'..\Test_Source\Account.db', Table_Name='UserAccount')
 
 SQL.Create_Table('CREATE TABLE IF NOT EXISTS UserAccount(Email VARCHAR(254),Passsword VARCHAR(20))')
 
@@ -47,14 +45,13 @@ SQL.Values_Count = 2
 
 SQL.Table_Name = 'UserAccount'
 
-SQL.Insert_Into_Replace('zenmailman@gmail.com','12345678')
+SQL.Insert_Into_Replace('zenmailman@gmail.com', '12345678')
 
 SQL.Table_Name = 'UserAuthorityLevelID'
 
-SQL.Insert_Into_Replace('zenmailman@gmail.com','1')
+SQL.Insert_Into_Replace('zenmailman@gmail.com', '1')
 
 SQL.Close()
-
 
 '''
 SQL=SQLite_Core(DB_Name=r'..\Test_Source\File.db',Table_Name='FileInfo')

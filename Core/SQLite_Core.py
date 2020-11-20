@@ -30,7 +30,8 @@ class SQLite_Core():
 
     def Set_Value_Count(self, Value_Count):
         self.Value_Count = Value_Count
-        self.Sqlite_Control.Value_Count=Value_Count
+        self.Sqlite_Control.Value_Count = Value_Count
+
     # ----------------------------------------------------------------------------------------------
     def ValueError_Log(self, Print):
         print(datetime.datetime.now(), 'I JE-Database Error', sep=' ')
@@ -52,13 +53,13 @@ class SQLite_Core():
                 SQL_Command = '''INSERT INTO ''' + self.Table_Name + ''' VALUES (?)'''
             else:
                 SQL_Command = '''INSERT INTO ''' + self.Table_Name + ''' VALUES (''' + '?,' * (
-                            self.Values_Count - 1) + '?' + ''')'''
+                        self.Values_Count - 1) + '?' + ''')'''
         else:
             if self.Values_Count == 1:
                 SQL_Command = '''INSERT INTO ''' + self.Table_Name + '''(''' + Field + ''') VALUES (?)'''
             else:
                 SQL_Command = '''INSERT INTO ''' + self.Table_Name + '''(''' + Field + ''') VALUES (''' + '?,' * (
-                            self.Values_Count - 1) + '?' + ''')'''
+                        self.Values_Count - 1) + '?' + ''')'''
 
         self.Sqlite_Control.Insert_Into(SQL_Command, args)
 
@@ -72,13 +73,13 @@ class SQLite_Core():
                 SQL_Command = '''INSERT OR IGNORE INTO ''' + self.Table_Name + ''' VALUES (?)'''
             else:
                 SQL_Command = '''INSERT OR IGNORE INTO ''' + self.Table_Name + ''' VALUES (''' + '?,' * (
-                            self.Values_Count - 1) + '?' + ''')'''
+                        self.Values_Count - 1) + '?' + ''')'''
         else:
             if self.Values_Count == 1:
                 SQL_Command = '''INSERT OR IGNORE INTO ''' + self.Table_Name + '''(''' + Field + ''') VALUES (?)'''
             else:
                 SQL_Command = '''INSERT OR IGNORE INTO ''' + self.Table_Name + '''(''' + Field + ''') VALUES (''' + '?,' * (
-                            self.Values_Count - 1) + '?' + ''')'''
+                        self.Values_Count - 1) + '?' + ''')'''
 
         self.Sqlite_Control.Insert_Into_Ignore(SQL_Command, args)
 
@@ -91,13 +92,13 @@ class SQLite_Core():
                 SQL_Command = '''REPLACE INTO ''' + self.Table_Name + ''' VALUES (?)'''
             else:
                 SQL_Command = '''REPLACE INTO ''' + self.Table_Name + ''' VALUES (''' + '?,' * (
-                            self.Values_Count - 1) + '?' + ''')'''
+                        self.Values_Count - 1) + '?' + ''')'''
         else:
             if self.Values_Count == 1:
                 SQL_Command = '''REPLACE INTO ''' + self.Table_Name + '''(''' + Field + ''')VALUES (?)'''
             else:
                 SQL_Command = '''REPLACE INTO ''' + self.Table_Name + '''(''' + Field + ''') VALUES (''' + '?,' * (
-                            self.Values_Count - 1) + '?' + ''')'''
+                        self.Values_Count - 1) + '?' + ''')'''
 
         self.Sqlite_Control.Insert_Into_Replace(SQL_Command, args)
 
@@ -146,7 +147,7 @@ class SQLite_Core():
             return self.Sqlite_Control.Select_Where(Field, SQL_Command, args)
         else:
             SQL_Command = '''SELECT ''' + '?,' * (
-                        self.Values_Count - 1) + '?' + ''' FROM ''' + self.Table_Name + ''' WHERE ''' + Field + '''=?'''
+                    self.Values_Count - 1) + '?' + ''' FROM ''' + self.Table_Name + ''' WHERE ''' + Field + '''=?'''
             return self.Sqlite_Control.Select_Where(Field, SQL_Command, args)
 
     # ----------------------------------------------------------------------------------------------
