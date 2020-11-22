@@ -1,7 +1,7 @@
 import os
 from datetime import timedelta
 
-from flask import Flask, request, redirect, session
+from flask import Flask, request, redirect, session,g
 from flask_cors import cross_origin
 
 from Core.Code_Core import Code_Core
@@ -26,22 +26,38 @@ Code_Generate = Code_Core()
 '''
 
 
+#捕抓例外路徑
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    return f'Path : {path} no exist'
+
+
 @app.route(r'/', methods=['GET', 'POST'])
 @cross_origin()
 def Main_Page():
-    session['login_state'] = 'No'
     return "Main"
 
 
 @app.route(r'/Login', methods=['GET', 'POST'])
 @cross_origin()
 def Login():
+    if request.method == "POST":
+        print(request.form.get('Email'))
+        print(request.form.get('Password'))
+        print(request.form.get('Verification_Code'))
+    return redirect('http://127.0.0.1:5000/', 302)
+
+
+@app.route(r'/Logout', methods=['GET'])
+@cross_origin()
+def Logout():
     session['login_state'] = False
     if request.method == "POST":
         print(request.form.get('Email'))
         print(request.form.get('Password'))
         print(request.form.get('Verification_Code'))
-    return redirect('http://127.0.0.1:5000/', '302')
+    return redirect('http://127.0.0.1:5000/', 302)
 
 
 @app.route(r'/Register', methods=['GET', 'POST'])
@@ -51,7 +67,7 @@ def Register():
         print(request.form.get('Email'))
         print(request.form.get('Password'))
         print(request.form.get('ConfirmPassword'))
-    return redirect('http://127.0.0.1:5000/Login', '302')
+    return redirect('http://127.0.0.1:5000/Login', 302)
 
 
 @app.route(r'/Forgot_Password', methods=['GET', 'POST'])
@@ -59,7 +75,7 @@ def Register():
 def Forgot_Password():
     if request.method == "POST":
         print(request.form.get('Email'))
-    return redirect('http://127.0.0.1:5000/Verification_Code', '302')
+    return redirect('http://127.0.0.1:5000/Verification_Code', 302)
 
 
 @app.route(r'/Verification_Code', methods=['GET', 'POST'])
@@ -67,7 +83,7 @@ def Forgot_Password():
 def Verification_Code():
     if request.method == "POST":
         print(request.form.get('Verification_Code'))
-    return redirect('http://127.0.0.1:5000/Login', '302')
+    return redirect('http://127.0.0.1:5000/Login', 302)
 
 
 @app.route(r'/Generate_CodeImage', methods=['GET', 'POST'])
