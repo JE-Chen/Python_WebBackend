@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 .idea/discord.xml
 Test/token.pickle
+Token/credentials.json
+Test/token.pickle
+Token/credentials.json
